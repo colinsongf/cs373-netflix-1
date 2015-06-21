@@ -45,26 +45,48 @@ class TestNetflix (TestCase) :
         self.assertEqual(1417435, (to_predict[10851])[0])
         self.assertEqual(1234567, (to_predict[10851])[1])
 
+    # ----  
+    # get_movie_rating
+    # ----
+
+    def test_get_movie_rating_1(self):
+        
 
     # ----
     # eval
     # ----
 
     def test_eval_1 (self) :
-        v = netflix_eval(1, 10)
-        self.assertEqual(v, 1)
+        to_predict_dict = OrderedDict([(2043, [1417435, 2312054, 462685])])
+        predictions_dict = netflix_eval(to_predict_dict)
+        self.assertEqual(1, len(predictions_dict))
+        movie_ratings = predictions_dict[2043]
+        self.assertEqual(3, len(movie_ratings))
+        self.assertTrue(movie_ratings[0] >= 1)
+        self.assertTrue(movie_ratings[0] <= 5)
+        self.assertTrue(movie_ratings[1] >= 1)
+        self.assertTrue(movie_ratings[1] <= 5)
+        self.assertTrue(movie_ratings[2] >= 1)
+        self.assertTrue(movie_ratings[2] <= 5)
 
     def test_eval_2 (self) :
-        v = netflix_eval(100, 200)
-        self.assertEqual(v, 1)
-
-    def test_eval_3 (self) :
-        v = netflix_eval(201, 210)
-        self.assertEqual(v, 1)
-
-    def test_eval_4 (self) :
-        v = netflix_eval(900, 1000)
-        self.assertEqual(v, 1)
+        to_predict_dict = OrderedDict([(2043, [1417435, 2312054, 462685]), (10851, [1417435, 1234567])])
+        predictions_dict = netflix_eval(to_predict_dict)
+        self.assertEqual(2, len(predictions_dict))
+        movie_ratings = predictions_dict[2043]
+        self.assertEqual(3, len(movie_ratings))
+        self.assertTrue(movie_ratings[0] >= 1)
+        self.assertTrue(movie_ratings[0] <= 5)
+        self.assertTrue(movie_ratings[1] >= 1)
+        self.assertTrue(movie_ratings[1] <= 5)
+        self.assertTrue(movie_ratings[2] >= 1)
+        self.assertTrue(movie_ratings[2] <= 5)
+        movie_ratings = predictions_dict[10851]
+        self.assertEqual(2, len(movie_ratings))
+        self.assertTrue(movie_ratings[0] >= 1)
+        self.assertTrue(movie_ratings[0] <= 5)
+        self.assertTrue(movie_ratings[1] >= 1)
+        self.assertTrue(movie_ratings[1] <= 5)
 
     # -----
     # print

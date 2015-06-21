@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+import json
 from collections import OrderedDict 
 
 # ------------
@@ -35,19 +35,55 @@ def netflix_read (input) :
     return to_predict_dict 
 
 
+# ------------
+# get_movie_rating
+# ------------
+
+def get_movie_rating(movie_id) :
+    cache = json.loads("/u/ll9338/cs373/netflix-tests/BRG564-Average_Movie_Rating_Cache.json")
+
+
+
+    return cache[movie_id]
+
+
+# ------------
+# get_customer_rating
+# ------------
+
+def get_customer_rating(customer_id) :
+    cache = json.loads("/u/ll9338/cs373/netflix-tests/ezo55-Average_Viewer_Rating_Cache.json")
+
+    
+
+    return cache[customer_id]
+
+
+# ------------
+# predict
+# ------------
+
+def predict (customer_id, movie_id) :
+    return 1
 
 # ------------
 # netflix_eval
 # ------------
 
-def netflix_eval (i, j) :
+def netflix_eval (to_predict_dict) :
     """
     i the beginning of the range, inclusive
     j the end       of the range, inclusive
     return the max cycle length of the range [i, j]
     """
-    # <your code>
-    return 1
+    predictions_dict = to_predict_dict.copy()
+    for customer_id in predictions_dict :
+        movies = predictions_dict[customer_id]
+        for i in range(0, len(movies)) :
+            movie_id = movies[i]
+            movies[i] = predict(customer_id, movie_id)
+
+    return predictions_dict
 
 # -------------
 # netflix_print
