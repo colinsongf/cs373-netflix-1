@@ -40,11 +40,9 @@ def netflix_read (input) :
 # ------------
 
 def get_movie_rating(movie_id) :
-    cache = json.loads("/u/ll9338/cs373/netflix-tests/BRG564-Average_Movie_Rating_Cache.json")
-
-
-
-    return cache[movie_id]
+    with open ("/u/ll9338/cs373/netflix-tests/BRG564-Average_Movie_Rating_Cache.json")as f:
+        cache = json.load(f)
+    return cache[str(movie_id)]
 
 
 # ------------
@@ -52,11 +50,9 @@ def get_movie_rating(movie_id) :
 # ------------
 
 def get_customer_rating(customer_id) :
-    cache = json.loads("/u/ll9338/cs373/netflix-tests/ezo55-Average_Viewer_Rating_Cache.json")
-
-    
-
-    return cache[customer_id]
+    with open("/u/ll9338/cs373/netflix-tests/ezo55-Average_Viewer_Rating_Cache.json") as f:
+        cache = json.load(f)
+    return cache[str(customer_id)]
 
 
 # ------------
@@ -64,7 +60,7 @@ def get_customer_rating(customer_id) :
 # ------------
 
 def predict (customer_id, movie_id) :
-    return 1
+    return round((get_customer_rating(customer_id) + get_movie_rating(movie_id) ) / 2, 1)
 
 # ------------
 # netflix_eval

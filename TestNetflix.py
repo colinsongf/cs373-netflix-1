@@ -10,7 +10,7 @@ from io       import StringIO
 from unittest import main, TestCase
 
 from collections import OrderedDict 
-from Netflix import netflix_read, netflix_eval, netflix_print, netflix_solve
+from Netflix import netflix_read, netflix_eval, netflix_print, netflix_solve, get_movie_rating, get_customer_rating, predict
 
 # -----------
 # TestNetflix
@@ -50,17 +50,35 @@ class TestNetflix (TestCase) :
     # ----
 
     def test_get_movie_rating_1(self):
-        
+        rating = get_movie_rating(4335)
+        self.assertEqual(3.779, rating)
+
+    # ----     
+    # get_customer_rating
+    # ----
+
+    def test_get_customer_rating_1(self):
+        rating = get_customer_rating(1585790)
+        self.assertEqual(3.41666667, round(rating, 8))
+
+
+    # ----
+    # predict
+    # ----
+
+    def test_predict_1(self):
+        rating = predict(1585790, 4335)
+        self.assertEqual(3.6, rating)
 
     # ----
     # eval
     # ----
 
     def test_eval_1 (self) :
-        to_predict_dict = OrderedDict([(2043, [1417435, 2312054, 462685])])
+        to_predict_dict = OrderedDict([(1585790, [4335, 123, 35])])
         predictions_dict = netflix_eval(to_predict_dict)
         self.assertEqual(1, len(predictions_dict))
-        movie_ratings = predictions_dict[2043]
+        movie_ratings = predictions_dict[1585790]
         self.assertEqual(3, len(movie_ratings))
         self.assertTrue(movie_ratings[0] >= 1)
         self.assertTrue(movie_ratings[0] <= 5)
@@ -70,10 +88,10 @@ class TestNetflix (TestCase) :
         self.assertTrue(movie_ratings[2] <= 5)
 
     def test_eval_2 (self) :
-        to_predict_dict = OrderedDict([(2043, [1417435, 2312054, 462685]), (10851, [1417435, 1234567])])
+        to_predict_dict = OrderedDict([(1585790, [4335, 123, 35]), (2484454, [4335, 67])])
         predictions_dict = netflix_eval(to_predict_dict)
         self.assertEqual(2, len(predictions_dict))
-        movie_ratings = predictions_dict[2043]
+        movie_ratings = predictions_dict[1585790]
         self.assertEqual(3, len(movie_ratings))
         self.assertTrue(movie_ratings[0] >= 1)
         self.assertTrue(movie_ratings[0] <= 5)
@@ -81,7 +99,7 @@ class TestNetflix (TestCase) :
         self.assertTrue(movie_ratings[1] <= 5)
         self.assertTrue(movie_ratings[2] >= 1)
         self.assertTrue(movie_ratings[2] <= 5)
-        movie_ratings = predictions_dict[10851]
+        movie_ratings = predictions_dict[2484454]
         self.assertEqual(2, len(movie_ratings))
         self.assertTrue(movie_ratings[0] >= 1)
         self.assertTrue(movie_ratings[0] <= 5)
