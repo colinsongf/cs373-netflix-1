@@ -1,6 +1,14 @@
 #!/usr/bin/env python3
 import json
+
 from collections import OrderedDict 
+from math import sqrt
+
+with open ("/u/ll9338/cs373/netflix-tests/BRG564-Average_Movie_Rating_Cache.json")as f:
+        average_movie_ratings = json.load(f)
+
+with open("/u/ll9338/cs373/netflix-tests/ezo55-Average_Viewer_Rating_Cache.json") as f:
+        average_customer_ratings = json.load(f)
 
 # ------------
 # netflix_read
@@ -14,23 +22,23 @@ def netflix_read (input) :
     """
     to_predict_dict = OrderedDict()
     a = input.split()
-    customer_id = -1
+    movie_id = -1
     for s in a:
         if s[(len(s) - 1):] == ':' :
             try:
-                customer_id = int(s[0:len(s)-1])
+                movie_id = int(s[0:len(s)-1])
             except:
                 raise 
 
-            to_predict_dict[customer_id] = []
+            to_predict_dict[movie_id] = []
 
         else:
             try:
-                movie_id  = int(s)
+                customer_id  = int(s)
             except:
                 raise
 
-            to_predict_dict[customer_id].append(movie_id)
+            to_predict_dict[movie_id].append(customer_id)
 
     return to_predict_dict 
 
@@ -40,9 +48,7 @@ def netflix_read (input) :
 # ------------
 
 def get_movie_rating(movie_id) :
-    with open ("/u/ll9338/cs373/netflix-tests/BRG564-Average_Movie_Rating_Cache.json")as f:
-        cache = json.load(f)
-    return cache[str(movie_id)]
+    return average_movie_ratings[str(movie_id)]
 
 
 # ------------
@@ -50,17 +56,44 @@ def get_movie_rating(movie_id) :
 # ------------
 
 def get_customer_rating(customer_id) :
-    with open("/u/ll9338/cs373/netflix-tests/ezo55-Average_Viewer_Rating_Cache.json") as f:
-        cache = json.load(f)
-    return cache[str(customer_id)]
+    return average_customer_ratings[str(customer_id)]
+
+
+# ------------
+# get_solutions
+# ------------
+
+def get_solutions() :
+    with open("/u/ll9338/cs373/netflix-tests/jmt3675-probe_solution.txt") as f:
+        cache = netflix_read(f.read())
+    return cache
 
 
 # ------------
 # predict
 # ------------
 
-def predict (customer_id, movie_id) :
-    return round((get_customer_rating(customer_id) + get_movie_rating(movie_id) ) / 2, 1)
+def predict (movie_id, customer_id) :
+    return round((get_movie_rating(movie_id) + get_customer_rating(customer_id) ) / 2, 1)
+
+
+# ------------
+# calcualate_RMSE
+# ------------    
+def calculate_RMSE( predictions_dict, solutions_dict):
+    sum = 0
+    count = 0
+    for movie_id in predictions_dict:
+        for i in range(len(predictions_dict[movie_id])):
+            diff = solutions_dict[movie_id][i] - predictions_dict[movie_id][i]
+            sum += diff ** 2
+            count += 1
+
+    mean = sum / count
+    rmse = sqrt(mean)
+
+    return rmse
+
 
 # ------------
 # netflix_eval
@@ -73,11 +106,11 @@ def netflix_eval (to_predict_dict) :
     return the max cycle length of the range [i, j]
     """
     predictions_dict = to_predict_dict.copy()
-    for customer_id in predictions_dict :
-        movies = predictions_dict[customer_id]
+    for movie_id in predictions_dict :
+        movies = predictions_dict[movie_id]
         for i in range(0, len(movies)) :
-            movie_id = movies[i]
-            movies[i] = predict(customer_id, movie_id)
+            customer_id = movies[i]
+            movies[i] = predict(movie_id, customer_id)
 
     return predictions_dict
 
@@ -108,9 +141,10 @@ def netflix_solve (r, w) :
     r a reader
     w a writer
     """
-    '''
-    for s in r :
-        i, j = netflix_read(s)
-        v    = netflix_eval(i, j)
-        netflix_print(w, i, j, v)
-    '''
+    
+    to_predict_dict = netflix_read(r.read())
+    predictions_dict = netflix_eval(to_predict_dict)
+    netflix_print(w, predictions_dict)
+    solutions_dict = get_solutions()
+    rmse = calculate_RMSE(predictions_dict, solutions_dict)
+    w.write("RMSE: " + str(round(rmse, 2)))
