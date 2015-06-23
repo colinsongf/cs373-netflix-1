@@ -1,14 +1,22 @@
 #!/usr/bin/env python3
 import json
-
+import pickle
 from collections import OrderedDict 
+from urllib.request import urlopen
 from math import sqrt
 
-with open ("/u/ll9338/cs373/netflix-tests/BRG564-Average_Movie_Rating_Cache.json")as f:
-        average_movie_ratings = json.load(f)
-
-with open("/u/ll9338/cs373/netflix-tests/ezo55-Average_Viewer_Rating_Cache.json") as f:
-        average_customer_ratings = json.load(f)
+url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/BRG564-Average_Movie_Rating_Cache.json")
+average_movie_ratings = json.loads(url.read().decode(url.info().get_param('charset') or 'utf-8'))
+url.close()
+url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/ezo55-Average_Viewer_Rating_Cache.json")
+average_customer_ratings = json.loads(url.read().decode(url.info().get_param('charset') or 'utf-8'))
+url.close()
+url =urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/mb39822-user_info.p")
+user_info = pickle.load(url)
+url.close()
+url =urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/mb39822-movie_info.p")
+movie_info = pickle.load(url)
+url.close()
 
 # ------------
 # netflix_read
@@ -25,19 +33,11 @@ def netflix_read (input) :
     movie_id = -1
     for s in a:
         if s[(len(s) - 1):] == ':' :
-            try:
-                movie_id = int(s[0:len(s)-1])
-            except:
-                raise 
-
+            movie_id = int(s[0:len(s)-1])
             to_predict_dict[movie_id] = []
 
         else:
-            try:
-                customer_id  = int(s)
-            except:
-                raise
-
+            customer_id  = int(s)
             to_predict_dict[movie_id].append(customer_id)
 
     return to_predict_dict 
@@ -48,7 +48,8 @@ def netflix_read (input) :
 # ------------
 
 def get_movie_rating(movie_id) :
-    return average_movie_ratings[str(movie_id)]
+    return movie_info.get(movie_id).get('avg')
+    #return average_movie_ratings[str(movie_id)]
 
 
 # ------------
@@ -56,6 +57,7 @@ def get_movie_rating(movie_id) :
 # ------------
 
 def get_customer_rating(customer_id) :
+    #return user_info.get(customer_id).get('avg')
     return average_customer_ratings[str(customer_id)]
 
 
