@@ -1,22 +1,30 @@
 #!/usr/bin/env python3
 import json
 import pickle
+import socket
 from collections import OrderedDict 
 from urllib.request import urlopen
 from math import sqrt
 
 # open the caches from the public test repo
+"""
 url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/BRG564-Average_Movie_Rating_Cache.json")
 average_movie_ratings = json.loads(url.read().decode(url.info().get_param('charset') or 'utf-8'))
 url.close()
 url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/ezo55-Average_Viewer_Rating_Cache.json")
 average_customer_ratings = json.loads(url.read().decode(url.info().get_param('charset') or 'utf-8'))
 url.close()
-url =urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/mb39822-user_info.p")
-user_info = pickle.load(url)
-url.close()
+"""
 url =urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/mb39822-movie_info.p")
 movie_info = pickle.load(url)
+url.close()
+
+url =urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/mb39822-user_info.txt")
+user_info = pickle.load(url)
+url.close()
+
+url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/jmt3675-probe_solution.txt")
+solutions = url.read()
 url.close()
 
 # ------------
@@ -58,7 +66,7 @@ def get_movie_rating(movie_id) :
     movie_id an int, the id of the movie
     return an int, the average rating of that movie
     """
-    return movie_info.get(movie_id).get('avg')
+    return int(movie_info.get(movie_id).get('avg'))
     #return average_movie_ratings[str(movie_id)]
 
 
@@ -72,8 +80,8 @@ def get_customer_rating(customer_id) :
     customer_id an int, the id of the customer
     return an int, the average rating that customer gives
     """
-    #return user_info.get(customer_id).get('avg')
-    return average_customer_ratings[str(customer_id)]
+    return int(user_info.get(customer_id).get('avg'))
+    #return average_customer_ratings[str(customer_id)]
 
 
 # ------------
@@ -85,9 +93,7 @@ def get_solutions() :
     give the actual answers for the probe input
     return a dictionary where the keys are movie ids and each value is a list of ratings
     """
-    with open("/u/ll9338/cs373/netflix-tests/jmt3675-probe_solution.txt") as f:
-        cache = netflix_read(f.read())
-    return cache
+    return netflix_read(solutions)
 
 
 # ------------

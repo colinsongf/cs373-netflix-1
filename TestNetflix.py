@@ -93,7 +93,7 @@ class TestNetflix (TestCase) :
         movie_ratings = solutions_dict[10]
         self.assertEqual(3, movie_ratings[1])
 
-    def test_get_solutions_2(self):
+    def test_get_solutions_3(self):
         solutions_dict = get_solutions()
         movie_ratings = solutions_dict[10016]
         self.assertEqual(2, movie_ratings[0])
