@@ -224,6 +224,28 @@ class TestNetflix (TestCase) :
         #.09 .25 .36
         #0.2333...
         #0.48304589
+
+    def test_solve_2 (self) :
+        r = StringIO("10000:\n2311278\n928262")
+        w = StringIO()
+        netflix_solve(r, w)
+        self.assertEqual(w.getvalue(), "10000:\n4.7\n3.5\nRMSE: 0.41")
+        #5 4
+        #0.3 .5
+        #0.09 .25
+        #0.17
+        #0.412310
+
+    def test_solve_3 (self) :
+        r = StringIO("16575:\n30878\n2647871\n1283744\n2311278")
+        w = StringIO()
+        netflix_solve(r, w)
+        self.assertEqual(w.getvalue(), "16575:\n3.7\n3.5\n3.6\n4.9\nRMSE: 1.21")
+        # 5 5 4 5
+        #1.3 1.5 1.4 .1 
+        #1.69 2.25 1.96 0.01
+        #1.4775
+        #1.21552
 # ----
 # main
 # ----
