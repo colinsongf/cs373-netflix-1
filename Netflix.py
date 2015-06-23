@@ -6,29 +6,43 @@ from collections import OrderedDict
 from urllib.request import urlopen
 from math import sqrt
 
-# open the caches from the public test repo
+# ------------
+# netflix_load
+# ------------
 
-url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/BRG564-Average_Movie_Rating_Cache.json")
-average_movie_ratings = json.loads(url.read().decode(url.info().get_param('charset') or 'utf-8'))
-url.close()
+def netflix_load () :
+    """
+    read a string of the full input on which to predict ratings
+    input a string
+    return a dictionary where the keys are movie ids and each value is a list of customer ids
+            for which to predict their rating of that movie, or a list of ratings which those
+            customers have given that movie
+    """
+    # open the caches from the public test repo
+    """
+    url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/BRG564-Average_Movie_Rating_Cache.json")
+    average_movie_ratings = json.loads(url.read().decode(url.info().get_param('charset') or 'utf-8'))
+    url.close()
 
-url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/ezo55-Average_Viewer_Rating_And_Variance_Cache.json")
-average_customer_ratings = json.loads(url.read().decode(url.info().get_param('charset') or 'utf-8'))
-url.close()
+    url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/ezo55-Average_Viewer_Rating_And_Variance_Cache.json")
+    average_customer_ratings = json.loads(url.read().decode(url.info().get_param('charset') or 'utf-8'))
+    url.close()
+    """
+    url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/mb39822-movie_info.p")
+    movie_info = pickle.load(url)
+    #print(movie_info)
+    url.close()
 
-url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/mb39822-movie_info.p")
-movie_info = pickle.load(url)
-print(movie_info)
-url.close()
+    url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/mb39822-user_info.txt")
+    user_info = pickle.load(url)
+    #print(user_info)
+    url.close()
 
-url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/mb39822-user_info.txt")
-user_info = pickle.load(url)
-print(user_info)
-url.close()
+    url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/jmt3675-probe_solution.txt")
+    solutions = url.read().decode(url.info().get_param('charset') or 'utf-8')
+    url.close()
 
-url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/jmt3675-probe_solution.txt")
-solutions = url.read().decode(url.info().get_param('charset') or 'utf-8')
-url.close()
+    return [movie_info, user_info, solutions]
 
 # ------------
 # netflix_read
@@ -64,35 +78,33 @@ def netflix_read (input) :
 # get_movie_rating
 # ------------
 
-def get_movie_rating(movie_id) :
+def get_movie_rating(movie_info, movie_id) :
     """
     find the average rating for a movie
     movie_id an int, the id of the movie
     return an int, the average rating of that movie
     """
-    print(movie_info.get(movie_id).get('avg'))
-    return average_movie_ratings[str(movie_id)]
+    return movie_info[movie_id]['avg']
 
 
 # ------------
 # get_customer_rating
 # ------------
 
-def get_customer_rating(customer_id) :
+def get_customer_rating(user_info, customer_id) :
     """
     find the average rating a customer gives
     customer_id an int, the id of the customer
     return an int, the average rating that customer gives
     """
-    print(user_info.get(customer_id).get('avg'))
-    return average_customer_ratings[str(customer_id)][0]
+    return user_info[customer_id]['total'] / user_info[customer_id]['count']
 
 
 # ------------
 # get_solutions
 # ------------
 
-def get_solutions() :
+def get_solutions(solutions) :
     """
     give the actual answers for the probe input
     return a dictionary where the keys are movie ids and each value is a list of ratings
@@ -104,7 +116,7 @@ def get_solutions() :
 # predict
 # ------------
 
-def predict (movie_id, customer_id) :
+def predict (caches, movie_id, customer_id) :
     """
     make a prediction of what a customer will rate a movie
     movie_id an int, the movie to predict the rating of
@@ -113,8 +125,12 @@ def predict (movie_id, customer_id) :
     """
     # incorrect right now
     # average the average customer rating, rating for that decade, movie rating, movie for customer's year
-    var_weight = (average_customer_ratings[str(customer_id)][1])/4
-    return round(( (var_weight)*get_movie_rating(movie_id) + (1-var_weight)*get_customer_rating(customer_id)), 1)
+    movie_info = caches[0]
+    user_info = caches[1]
+
+    avg_movie_rating = get_movie_rating(movie_info, movie_id)
+    avg_customer_rating = get_customer_rating(user_info, customer_id)
+    return round(( avg_movie_rating + avg_customer_rating) / 2, 1)
 
 
 # ------------
@@ -146,7 +162,7 @@ def calculate_RMSE( predictions_dict, solutions_dict):
 # netflix_eval
 # ------------
 
-def netflix_eval (to_predict_dict) :
+def netflix_eval (caches, to_predict_dict) :
     """
     create a dictionary of predictions from a dictionary of customers and movies for which
     ratings must be predicted
@@ -160,7 +176,7 @@ def netflix_eval (to_predict_dict) :
         movies = predictions_dict[movie_id]
         for i in range(0, len(movies)) :
             customer_id = movies[i]
-            movies[i] = predict(movie_id, customer_id)
+            movies[i] = predict(caches, movie_id, customer_id)
 
     return predictions_dict
 
@@ -190,11 +206,14 @@ def netflix_solve (r, w) :
     r a reader
     w a writer
     """
-    
+    caches = netflix_load()
+    movie_info = caches[0]
+    user_info = caches[1]
+    solutions = caches[2]
     to_predict_dict = netflix_read(r.read())
-    predictions_dict = netflix_eval(to_predict_dict)
+    predictions_dict = netflix_eval(caches, to_predict_dict)
     netflix_print(w, predictions_dict)
-    solutions_dict = get_solutions()
+    solutions_dict = get_solutions(solutions)
     rmse = calculate_RMSE(predictions_dict, solutions_dict)
     w.write("RMSE: " + ('%.2f' % (int(rmse*100)/float(100))))
     
