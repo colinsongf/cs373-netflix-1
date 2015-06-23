@@ -35,7 +35,7 @@ class TestNetflix (TestCase) :
         self.assertEqual(2312054, (to_predict[2043])[1])
         self.assertEqual(462685, (to_predict[2043])[2])
 
-    def test_read_2 (self) :
+    def test_read_3 (self) :
         s    = "2043:\n1417435\n2312054\n462685\n10851:\n1417435\n1234567\n"
         to_predict = netflix_read(s)
         self.assertEqual(2, len(to_predict))
@@ -53,6 +53,16 @@ class TestNetflix (TestCase) :
         rating = get_movie_rating(4335)
         self.assertEqual(3.779, rating)
 
+    def test_get_movie_rating_2(self):
+        rating = get_movie_rating(4618)
+        self.assertEqual(2.7875, rating)
+
+    def test_get_movie_rating_3(self):
+        rating = get_movie_rating(2736)
+        self.assertEqual(3.875, rating)
+
+
+
     # ----     
     # get_customer_rating
     # ----
@@ -61,6 +71,13 @@ class TestNetflix (TestCase) :
         rating = get_customer_rating(1585790)
         self.assertEqual(3.41666667, round(rating, 8))
 
+    def test_get_customer_rating_2(self):
+        rating = get_customer_rating(1654988)
+        self.assertEqual(4.20408163, round(rating, 8))
+
+    def test_get_customer_rating_3(self):
+        rating = get_customer_rating(958597)
+        self.assertEqual(3.27848101, round(rating, 8))
 
     # ----     
     # get_solutions
@@ -71,6 +88,18 @@ class TestNetflix (TestCase) :
         movie_ratings = solutions_dict[1]
         self.assertEqual(4, movie_ratings[0])
 
+    def test_get_solutions_2(self):
+        solutions_dict = get_solutions()
+        movie_ratings = solutions_dict[10]
+        self.assertEqual(3, movie_ratings[1])
+
+    def test_get_solutions_2(self):
+        solutions_dict = get_solutions()
+        movie_ratings = solutions_dict[10016]
+        self.assertEqual(2, movie_ratings[0])
+        self.assertEqual(2, movie_ratings[2])
+        self.assertEqual(5, movie_ratings[4])
+
 
     # ----
     # predict
@@ -80,28 +109,54 @@ class TestNetflix (TestCase) :
         rating = predict(4335, 1585790)
         self.assertEqual(3.6, rating)
 
+    def test_predict_2(self):
+        rating = predict(3949, 2484454)
+        self.assertEqual(3.9, rating)
+
+    def test_predict_3(self):
+        rating = predict(5370, 756299)
+        self.assertEqual(3.2, rating)
+
 
     # ------------
     # calcualate_RMSE
     # ------------    
 
-    def test_calculate_RMSE(self):
+    def test_calculate_RMSE_1(self):
         to_predict_dict = OrderedDict([(1585790, [2, 3, 4])])
         solutions_dict = OrderedDict([(1585790, [4, 1, 7])])
         rmse = calculate_RMSE(to_predict_dict, solutions_dict)
         self.assertEqual( 2.38047614285, round(rmse, 11))
 
-    def test_calculate_RMSE(self):
+    def test_calculate_RMSE_2(self):
         to_predict_dict = OrderedDict([(1585790, [2, 3]), (2484454, [4])])
         solutions_dict = OrderedDict([(1585790, [4, 1]), (2484454, [7])])
         rmse = calculate_RMSE(to_predict_dict, solutions_dict)
         self.assertEqual( 2.38047614285, round(rmse, 11))
+
+    def test_calculate_RMSE_3(self):
+        to_predict_dict = OrderedDict([(1585790, [2]), (2484454, [3]),(756299, [4])])
+        solutions_dict = OrderedDict([(1585790, [4]), (2484454, [1]),(756299,[7])])
+        rmse = calculate_RMSE(to_predict_dict, solutions_dict)
+        self.assertEqual( 2.38047614285, round(rmse, 11))
+
 
     # ----
     # eval
     # ----
 
     def test_eval_1 (self) :
+        to_predict_dict = OrderedDict([(1234, [1585790, 654988])])
+        predictions_dict = netflix_eval(to_predict_dict)
+        self.assertEqual(1, len(predictions_dict))
+        movie_ratings = predictions_dict[1234]
+        self.assertEqual(2, len(movie_ratings))
+        self.assertTrue(movie_ratings[0] >= 1)
+        self.assertTrue(movie_ratings[0] <= 5)
+        self.assertTrue(movie_ratings[1] >= 1)
+        self.assertTrue(movie_ratings[1] <= 5)
+
+    def test_eval_2 (self) :
         to_predict_dict = OrderedDict([(4335, [1585790, 2484454, 756299])])
         predictions_dict = netflix_eval(to_predict_dict)
         self.assertEqual(1, len(predictions_dict))
@@ -114,7 +169,7 @@ class TestNetflix (TestCase) :
         self.assertTrue(movie_ratings[2] >= 1)
         self.assertTrue(movie_ratings[2] <= 5)
 
-    def test_eval_2 (self) :
+    def test_eval_3 (self) :
         to_predict_dict = OrderedDict([(4335, [1585790, 2484454, 756299]), (1234, [1585790, 1654988])])
         predictions_dict = netflix_eval(to_predict_dict)
         self.assertEqual(2, len(predictions_dict))
@@ -149,10 +204,17 @@ class TestNetflix (TestCase) :
         netflix_print(w, predictions_dict)
         self.assertEqual(w.getvalue(), "2043:\n3.4\n4.1\n1.9\n10851:\n4.3\n1.4\n2.8\n")
 
+    def test_print_3 (self) :
+        w = StringIO()
+        predictions_dict = OrderedDict([(2043, [3.4, 4.1, 1.9]), (10851, [4.3, 1.4, 2.8]), (3367, [3.2, 1.1, 4.5])])
+        netflix_print(w, predictions_dict)
+        self.assertEqual(w.getvalue(), "2043:\n3.4\n4.1\n1.9\n10851:\n4.3\n1.4\n2.8\n3367:\n3.2\n1.1\n4.5\n")
+
+
     # -----
     # solve
     # -----
-    def test_solve (self) :
+    def test_solve_1 (self) :
         r = StringIO("1:\n30878\n2647871\n1283744")
         w = StringIO()
         netflix_solve(r, w)
