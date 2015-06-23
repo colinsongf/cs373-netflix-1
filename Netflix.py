@@ -7,24 +7,27 @@ from urllib.request import urlopen
 from math import sqrt
 
 # open the caches from the public test repo
-"""
+
 url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/BRG564-Average_Movie_Rating_Cache.json")
 average_movie_ratings = json.loads(url.read().decode(url.info().get_param('charset') or 'utf-8'))
 url.close()
-url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/ezo55-Average_Viewer_Rating_Cache.json")
+
+url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/ezo55-Average_Viewer_Rating_And_Variance_Cache.json")
 average_customer_ratings = json.loads(url.read().decode(url.info().get_param('charset') or 'utf-8'))
 url.close()
-"""
-url =urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/mb39822-movie_info.p")
+
+url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/mb39822-movie_info.p")
 movie_info = pickle.load(url)
+print(movie_info)
 url.close()
 
-url =urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/mb39822-user_info.txt")
+url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/mb39822-user_info.txt")
 user_info = pickle.load(url)
+print(user_info)
 url.close()
 
 url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/jmt3675-probe_solution.txt")
-solutions = url.read()
+solutions = url.read().decode(url.info().get_param('charset') or 'utf-8')
 url.close()
 
 # ------------
@@ -43,7 +46,8 @@ def netflix_read (input) :
     a = input.split()
     movie_id = -1
     for s in a:
-        if s[(len(s) - 1):] == ':' :
+        if ':' in s :
+        #if s[(len(s) - 1):] == ':' :
             # s should contain a movie id, so make it a key
             movie_id = int(s[0:len(s)-1])
             to_predict_dict[movie_id] = []
@@ -66,8 +70,8 @@ def get_movie_rating(movie_id) :
     movie_id an int, the id of the movie
     return an int, the average rating of that movie
     """
-    return int(movie_info.get(movie_id).get('avg'))
-    #return average_movie_ratings[str(movie_id)]
+    print(movie_info.get(movie_id).get('avg'))
+    return average_movie_ratings[str(movie_id)]
 
 
 # ------------
@@ -80,8 +84,8 @@ def get_customer_rating(customer_id) :
     customer_id an int, the id of the customer
     return an int, the average rating that customer gives
     """
-    return int(user_info.get(customer_id).get('avg'))
-    #return average_customer_ratings[str(customer_id)]
+    print(user_info.get(customer_id).get('avg'))
+    return average_customer_ratings[str(customer_id)][0]
 
 
 # ------------
@@ -107,7 +111,10 @@ def predict (movie_id, customer_id) :
     customer_id an int, the customer whose rating is to be predicted
     return an int, the predicted rating of the customer for the movie
     """
-    return round((get_movie_rating(movie_id) + get_customer_rating(customer_id) ) / 2, 1)
+    # incorrect right now
+    # average the average customer rating, rating for that decade, movie rating, movie for customer's year
+    var_weight = (average_customer_ratings[str(customer_id)][1])/4
+    return round(( (var_weight)*get_movie_rating(movie_id) + (1-var_weight)*get_customer_rating(customer_id)), 1)
 
 
 # ------------
@@ -189,5 +196,5 @@ def netflix_solve (r, w) :
     netflix_print(w, predictions_dict)
     solutions_dict = get_solutions()
     rmse = calculate_RMSE(predictions_dict, solutions_dict)
-    w.write("RMSE: " + str(round(rmse, 2)))
+    w.write("RMSE: " + ('%.2f' % (int(rmse*100)/float(100))))
     
