@@ -50,6 +50,11 @@ class TestNetflix (TestCase) :
         self.assertEqual(1417435, (to_predict[10851])[0])
         self.assertEqual(1234567, (to_predict[10851])[1])
 
+    """
+    because these are simple functions to get values from the cache,
+    these are effectively more effectively testing netflix_load
+    """
+
     # ----  
     # get_movie_rating
     # ----
@@ -112,7 +117,7 @@ class TestNetflix (TestCase) :
 
     def test_predict_1(self):
         rating = predict(self.caches, 4335, 1585790)
-        self.assertEqual(3.6, rating)
+        self.assertEqual(3.5, rating)
 
     def test_predict_2(self):
         rating = predict(self.caches, 3949, 2484454)
@@ -223,7 +228,7 @@ class TestNetflix (TestCase) :
         r = StringIO("1:\n30878\n2647871\n1283744")
         w = StringIO()
         netflix_solve(r, w)
-        self.assertEqual(w.getvalue(), "1:\n3.7\n3.5\n3.6\nRMSE: 0.48")
+        self.assertEqual(w.getvalue(), "1:\n3.7\n3.3\n3.8\nRMSE: 0.63")
         #4 4 3
         #-.3 .5 .6
         #.09 .25 .36
@@ -234,7 +239,7 @@ class TestNetflix (TestCase) :
         r = StringIO("10000:\n2311278\n928262")
         w = StringIO()
         netflix_solve(r, w)
-        self.assertEqual(w.getvalue(), "10000:\n4.7\n3.5\nRMSE: 0.41")
+        self.assertEqual(w.getvalue(), "10000:\n3.5\n3.1\nRMSE: 1.23")
         #5 4
         #0.3 .5
         #0.09 .25
@@ -245,7 +250,7 @@ class TestNetflix (TestCase) :
         r = StringIO("16575:\n30878\n2647871\n1283744\n2311278")
         w = StringIO()
         netflix_solve(r, w)
-        self.assertEqual(w.getvalue(), "16575:\n3.7\n3.5\n3.6\n4.9\nRMSE: 1.21")
+        self.assertEqual(w.getvalue(), "16575:\n3.7\n3.7\n3.8\n3.9\nRMSE: 1.07")
         # 5 5 4 5
         #1.3 1.5 1.4 .1 
         #1.69 2.25 1.96 0.01
