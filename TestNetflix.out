@@ -1,10 +1,91 @@
+............EEEF........EEE
+======================================================================
+ERROR: test_get_solutions_1 (__main__.TestNetflix)
+----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "TestNetflix.py", line 19, in <module>
-    class TestNetflix (TestCase) :
-  File "TestNetflix.py", line 21, in TestNetflix
-    print("loading\n")
-  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 25, in netflix_load
-    user_info = pickle.load(url)
-  File "/lusr/opt/python-3.4.1/lib/python3.4/http/client.py", line 500, in read
-    return super(HTTPResponse, self).read(amt)
-KeyboardInterrupt
+  File "TestNetflix.py", line 94, in test_get_solutions_1
+    solutions_dict = get_solutions(self.caches[2])
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 102, in get_solutions
+    return netflix_read(solutions)
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 50, in netflix_read
+    if ':' in s :
+TypeError: Type str doesn't support the buffer API
+
+======================================================================
+ERROR: test_get_solutions_2 (__main__.TestNetflix)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "TestNetflix.py", line 99, in test_get_solutions_2
+    solutions_dict = get_solutions(self.caches[2])
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 102, in get_solutions
+    return netflix_read(solutions)
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 50, in netflix_read
+    if ':' in s :
+TypeError: Type str doesn't support the buffer API
+
+======================================================================
+ERROR: test_get_solutions_3 (__main__.TestNetflix)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "TestNetflix.py", line 104, in test_get_solutions_3
+    solutions_dict = get_solutions(self.caches[2])
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 102, in get_solutions
+    return netflix_read(solutions)
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 50, in netflix_read
+    if ':' in s :
+TypeError: Type str doesn't support the buffer API
+
+======================================================================
+ERROR: test_solve_1 (__main__.TestNetflix)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "TestNetflix.py", line 227, in test_solve_1
+    netflix_solve(r, w)
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 210, in netflix_solve
+    solutions_dict = get_solutions(solutions)
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 102, in get_solutions
+    return netflix_read(solutions)
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 50, in netflix_read
+    if ':' in s :
+TypeError: Type str doesn't support the buffer API
+
+======================================================================
+ERROR: test_solve_2 (__main__.TestNetflix)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "TestNetflix.py", line 238, in test_solve_2
+    netflix_solve(r, w)
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 210, in netflix_solve
+    solutions_dict = get_solutions(solutions)
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 102, in get_solutions
+    return netflix_read(solutions)
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 50, in netflix_read
+    if ':' in s :
+TypeError: Type str doesn't support the buffer API
+
+======================================================================
+ERROR: test_solve_3 (__main__.TestNetflix)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "TestNetflix.py", line 249, in test_solve_3
+    netflix_solve(r, w)
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 210, in netflix_solve
+    solutions_dict = get_solutions(solutions)
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 102, in get_solutions
+    return netflix_read(solutions)
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 50, in netflix_read
+    if ':' in s :
+TypeError: Type str doesn't support the buffer API
+
+======================================================================
+FAIL: test_predict_1 (__main__.TestNetflix)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "TestNetflix.py", line 117, in test_predict_1
+    self.assertEqual(3.6, rating)
+AssertionError: 3.6 != 3.5
+
+----------------------------------------------------------------------
+Ran 27 tests in 20.272s
+
+FAILED (failures=1, errors=6)
