@@ -1,0 +1,133 @@
+commit 9a8b19075c2cc8fb3bb96c7beea069a33c9b2045
+Author: Erin Pennington <epenning@cs.utexas.edu>
+Date:   Tue Jun 23 20:35:31 2015 -0500
+
+    fixed unit tests to apply to new prediction algorithm
+
+commit ae960d211a8448006634dde3b92d94e2531d3779
+Author: Erin Pennington <epenning@cs.utexas.edu>
+Date:   Tue Jun 23 20:26:30 2015 -0500
+
+    fixed solutions file read type error
+
+commit 884e93aff24e7c2fb4884f0c6f1556aaa23b532f
+Author: Erin Pennington <epenning@cs.utexas.edu>
+Date:   Tue Jun 23 19:44:33 2015 -0500
+
+    there's a bug in netflix_read about colons
+
+commit c23e528097ef35620c8e28c658ca5919d28c2a2a
+Author: Erin Pennington <epenning@cs.utexas.edu>
+Date:   Tue Jun 23 19:30:24 2015 -0500
+
+    created setUpClass in unit test
+
+commit 6c84d6f83c73287c2fdedc3e54d6cbaeff4074f3
+Author: Erin Pennington <epenning@cs.utexas.edu>
+Date:   Tue Jun 23 19:18:46 2015 -0500
+
+    added local versions of cache and changed load function to use them
+
+commit c1b0353d550ccc6d4abeedfd54b3cdaf7fec0f86
+Merge: b9493a0 29a2b74
+Author: Luis Lopez <lclg21@utexas.edu>
+Date:   Tue Jun 23 15:08:25 2015 -0500
+
+    finished implementing unit tests
+
+commit 29a2b74ae568323804e237ab5a5ca1ce03461a54
+Author: Erin Pennington <epenning@cs.utexas.edu>
+Date:   Tue Jun 23 15:02:54 2015 -0500
+
+    removed .sample.out files
+
+commit b9493a0b824db5f776c7904963f72aa20ce471a5
+Author: Luis Lopez <lclg21@utexas.edu>
+Date:   Tue Jun 23 14:53:31 2015 -0500
+
+    Finished implementing the proper amount of unit tests per function
+
+commit 34a377dd3e90dde848ffd7414569cc0950b76c07
+Author: Erin Pennington <epenning@cs.utexas.edu>
+Date:   Tue Jun 23 14:52:02 2015 -0500
+
+    updated predict to use a customer's ratings of the movie's decade
+
+commit e7e8ae3976b9133d6dcd7ec0c294d0ed3ce23759
+Author: Erin Pennington <epenning@cs.utexas.edu>
+Date:   Tue Jun 23 14:23:20 2015 -0500
+
+    made a function to load caches, and changed functions to get ratings to use new info caches
+
+commit 0970c18241290db84092e5dbd443c52de0fdaf9c
+Author: Erin Pennington <epenning@cs.utexas.edu>
+Date:   Tue Jun 23 13:43:37 2015 -0500
+
+    fixed Netflix.py
+
+commit 5a3858c6307be28d2a88a0db9bc54773e870c883
+Author: Erin Pennington <epennington@utexas.edu>
+Date:   Tue Jun 23 12:18:09 2015 -0500
+
+    possibly broke something, fixed repetition of a test name in TestNetflix.py
+
+commit 20b7d125971515644f2ca4b75d8435a56bf79b3b
+Merge: ef8b602 a0a18c8
+Author: Erin Pennington <epennington@utexas.edu>
+Date:   Mon Jun 22 23:45:13 2015 -0500
+
+    Merge branch 'dev' of https://github.com/lclg21/cs373-netflix into dev
+
+commit ef8b602c1bec5ce02d3800d9a996e0f898ce741a
+Author: Erin Pennington <epennington@utexas.edu>
+Date:   Mon Jun 22 23:44:56 2015 -0500
+
+    added documentation to Netflix.py
+
+commit a0a18c81352022c5b639b10a395c15fce89fa4ce
+Author: Luis Lopez <lclg21@utexas.edu>
+Date:   Mon Jun 22 23:33:57 2015 -0500
+
+    added more unit tests to the test harness, need 3 more
+
+commit 8d973b9c95f56c3b25591b3ff3ebf72099b8a18a
+Author: Luis Lopez <lclg21@utexas.edu>
+Date:   Mon Jun 22 19:12:56 2015 -0500
+
+    added load for user and movie info caches
+
+commit c75c01c19aebd8373a78f82a4cc6db7cbede90d6
+Author: Luis Lopez <lclg21@utexas.edu>
+Date:   Mon Jun 22 18:20:28 2015 -0500
+
+    implemented rmse and solve along with unit tests
+
+commit 144e55b80d9fee9a28d420a5d9666a8596f4b637
+Author: Luis Lopez <lclg21@utexas.edu>
+Date:   Sun Jun 21 19:04:41 2015 -0500
+
+    finished predict and eval and added more tests cases
+
+commit f67a2b7207566a43f1cabddb6dc96c616519ab5c
+Author: Luis Lopez <lclg21@utexas.edu>
+Date:   Sun Jun 21 18:35:33 2015 -0500
+
+    implemented function eval and started the cache functions
+
+commit 114246206478e0464d2b4d8e86eec98bc77d4263
+Author: Luis Lopez <lclg21@utexas.edu>
+Date:   Sun Jun 21 17:46:47 2015 -0500
+
+    wrote functions and tests for reading and printing
+
+commit f0a10fe8b4c0d36e9fc1887b3bd3ef4ac5745ad8
+Author: Erin Pennington <epennington@utexas.edu>
+Date:   Sat Jun 20 11:09:19 2015 -0500
+
+    copied initial collatz files and renamed to netflix
+
+commit 842aab7cdb1eb467e54d5a7841e86e5f1a8eb2eb
+Author: lclg21 <lclg21@utexas.edu>
+Date:   Thu Jun 18 00:19:30 2015 -0500
+
+    Initial commit

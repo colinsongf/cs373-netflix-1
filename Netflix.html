@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module Netflix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>Netflix</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py">/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="json.html">json</a><br>
+</td><td width="25%" valign=top><a href="pickle.html">pickle</a><br>
+</td><td width="25%" valign=top><a href="socket.html">socket</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-calculate_RMSE"><strong>calculate_RMSE</strong></a>(predictions_dict, solutions_dict)</dt><dd><tt>calculate&nbsp;the&nbsp;RMSE&nbsp;for&nbsp;the&nbsp;ratings&nbsp;present&nbsp;in&nbsp;a&nbsp;dictionary&nbsp;of&nbsp;predictions&nbsp;and<br>
+those&nbsp;present&nbsp;in&nbsp;the&nbsp;dictionary&nbsp;of&nbsp;solutions<br>
+predictions_dict&nbsp;a&nbsp;dictionary&nbsp;where&nbsp;keys&nbsp;are&nbsp;movie&nbsp;ids&nbsp;and&nbsp;values&nbsp;are&nbsp;lists&nbsp;of&nbsp;predicted&nbsp;ratings<br>
+solutions_dict&nbsp;a&nbsp;dictionary&nbsp;where&nbsp;keys&nbsp;are&nbsp;movie&nbsp;ids&nbsp;and&nbsp;values&nbsp;are&nbsp;lists&nbsp;of&nbsp;actual&nbsp;ratings<br>
+return&nbsp;the&nbsp;RMSE&nbsp;of&nbsp;the&nbsp;predicted&nbsp;ratings&nbsp;from&nbsp;the&nbsp;actual&nbsp;ratings</tt></dd></dl>
+ <dl><dt><a name="-get_customer_rating"><strong>get_customer_rating</strong></a>(user_info, customer_id)</dt><dd><tt>find&nbsp;the&nbsp;average&nbsp;rating&nbsp;a&nbsp;customer&nbsp;gives<br>
+user_info&nbsp;the&nbsp;dictionary&nbsp;which&nbsp;contains&nbsp;info&nbsp;of&nbsp;users<br>
+customer_id&nbsp;an&nbsp;int,&nbsp;the&nbsp;id&nbsp;of&nbsp;the&nbsp;customer<br>
+return&nbsp;an&nbsp;int,&nbsp;the&nbsp;average&nbsp;rating&nbsp;that&nbsp;customer&nbsp;gives</tt></dd></dl>
+ <dl><dt><a name="-get_movie_rating"><strong>get_movie_rating</strong></a>(movie_info, movie_id)</dt><dd><tt>find&nbsp;the&nbsp;average&nbsp;rating&nbsp;for&nbsp;a&nbsp;movie<br>
+movie_info&nbsp;the&nbsp;dictionary&nbsp;which&nbsp;contains&nbsp;info&nbsp;of&nbsp;movies<br>
+movie_id&nbsp;an&nbsp;int,&nbsp;the&nbsp;id&nbsp;of&nbsp;the&nbsp;movie<br>
+return&nbsp;an&nbsp;int,&nbsp;the&nbsp;average&nbsp;rating&nbsp;of&nbsp;that&nbsp;movie</tt></dd></dl>
+ <dl><dt><a name="-get_solutions"><strong>get_solutions</strong></a>(solutions)</dt><dd><tt>give&nbsp;the&nbsp;actual&nbsp;answers&nbsp;for&nbsp;the&nbsp;probe&nbsp;input<br>
+solutions&nbsp;a&nbsp;string&nbsp;of&nbsp;an&nbsp;input&nbsp;file&nbsp;with&nbsp;solutions&nbsp;in&nbsp;it<br>
+return&nbsp;a&nbsp;dictionary&nbsp;where&nbsp;the&nbsp;keys&nbsp;are&nbsp;movie&nbsp;ids&nbsp;and&nbsp;each&nbsp;value&nbsp;is&nbsp;a&nbsp;list&nbsp;of&nbsp;ratings</tt></dd></dl>
+ <dl><dt><a name="-netflix_eval"><strong>netflix_eval</strong></a>(caches, to_predict_dict)</dt><dd><tt>create&nbsp;a&nbsp;dictionary&nbsp;of&nbsp;predictions&nbsp;from&nbsp;a&nbsp;dictionary&nbsp;of&nbsp;customers&nbsp;and&nbsp;movies&nbsp;for&nbsp;which<br>
+caches&nbsp;a&nbsp;list&nbsp;of&nbsp;the&nbsp;movie&nbsp;user&nbsp;info&nbsp;caches<br>
+ratings&nbsp;must&nbsp;be&nbsp;predicted<br>
+to_predict_dict&nbsp;a&nbsp;dictionary&nbsp;where&nbsp;keys&nbsp;are&nbsp;movie&nbsp;ids&nbsp;and&nbsp;values&nbsp;are&nbsp;lists&nbsp;of&nbsp;customer&nbsp;ids<br>
+return&nbsp;a&nbsp;dictionary&nbsp;where&nbsp;keys&nbsp;are&nbsp;movie&nbsp;ids&nbsp;and&nbsp;values&nbsp;are&nbsp;lists&nbsp;of&nbsp;ratings<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;corresponding&nbsp;to&nbsp;the&nbsp;input&nbsp;dictionary's&nbsp;customer&nbsp;ids</tt></dd></dl>
+ <dl><dt><a name="-netflix_load"><strong>netflix_load</strong></a>()</dt><dd><tt>load&nbsp;the&nbsp;movie&nbsp;and&nbsp;user&nbsp;info,&nbsp;and&nbsp;probe&nbsp;solutions&nbsp;caches<br>
+return&nbsp;a&nbsp;list&nbsp;of&nbsp;three&nbsp;dictionaries,&nbsp;the&nbsp;movie&nbsp;info,&nbsp;user&nbsp;info,&nbsp;and&nbsp;solutions</tt></dd></dl>
+ <dl><dt><a name="-netflix_print"><strong>netflix_print</strong></a>(w, predictions_dict)</dt><dd><tt>print&nbsp;a&nbsp;dictionary&nbsp;of&nbsp;predicted&nbsp;ratings<br>
+w&nbsp;a&nbsp;writer<br>
+predictions_dict&nbsp;the&nbsp;dictionary&nbsp;to&nbsp;be&nbsp;printed</tt></dd></dl>
+ <dl><dt><a name="-netflix_read"><strong>netflix_read</strong></a>(input)</dt><dd><tt>read&nbsp;a&nbsp;string&nbsp;of&nbsp;the&nbsp;full&nbsp;input&nbsp;on&nbsp;which&nbsp;to&nbsp;predict&nbsp;ratings<br>
+input&nbsp;a&nbsp;string<br>
+return&nbsp;a&nbsp;dictionary&nbsp;where&nbsp;the&nbsp;keys&nbsp;are&nbsp;movie&nbsp;ids&nbsp;and&nbsp;each&nbsp;value&nbsp;is&nbsp;a&nbsp;list&nbsp;of&nbsp;customer&nbsp;ids<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;which&nbsp;to&nbsp;predict&nbsp;their&nbsp;rating&nbsp;of&nbsp;that&nbsp;movie,&nbsp;or&nbsp;a&nbsp;list&nbsp;of&nbsp;ratings&nbsp;which&nbsp;those<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;customers&nbsp;have&nbsp;given&nbsp;that&nbsp;movie</tt></dd></dl>
+ <dl><dt><a name="-netflix_solve"><strong>netflix_solve</strong></a>(r, w)</dt><dd><tt>solve&nbsp;the&nbsp;netflix&nbsp;problem&nbsp;given&nbsp;input&nbsp;from&nbsp;r&nbsp;and&nbsp;outputting&nbsp;to&nbsp;w<br>
+r&nbsp;a&nbsp;reader<br>
+w&nbsp;a&nbsp;writer</tt></dd></dl>
+ <dl><dt><a name="-predict"><strong>predict</strong></a>(caches, movie_id, customer_id)</dt><dd><tt>make&nbsp;a&nbsp;prediction&nbsp;of&nbsp;what&nbsp;a&nbsp;customer&nbsp;will&nbsp;rate&nbsp;a&nbsp;movie<br>
+caches&nbsp;a&nbsp;list&nbsp;of&nbsp;the&nbsp;movie&nbsp;user&nbsp;info&nbsp;caches<br>
+movie_id&nbsp;an&nbsp;int,&nbsp;the&nbsp;movie&nbsp;to&nbsp;predict&nbsp;the&nbsp;rating&nbsp;of<br>
+customer_id&nbsp;an&nbsp;int,&nbsp;the&nbsp;customer&nbsp;whose&nbsp;rating&nbsp;is&nbsp;to&nbsp;be&nbsp;predicted<br>
+return&nbsp;an&nbsp;int,&nbsp;the&nbsp;predicted&nbsp;rating&nbsp;of&nbsp;the&nbsp;customer&nbsp;for&nbsp;the&nbsp;movie</tt></dd></dl>
+ <dl><dt><a name="-sqrt"><strong>sqrt</strong></a>(...)</dt><dd><tt><a href="#-sqrt">sqrt</a>(x)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;square&nbsp;root&nbsp;of&nbsp;x.</tt></dd></dl>
+</td></tr></table>
+</body></html>
