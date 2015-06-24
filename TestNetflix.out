@@ -3,89 +3,89 @@
 ERROR: test_get_solutions_1 (__main__.TestNetflix)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "TestNetflix.py", line 94, in test_get_solutions_1
+  File "TestNetflix.py", line 92, in test_get_solutions_1
     solutions_dict = get_solutions(self.caches[2])
-  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 102, in get_solutions
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 101, in get_solutions
     return netflix_read(solutions)
-  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 50, in netflix_read
-    if ':' in s :
-TypeError: Type str doesn't support the buffer API
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 57, in netflix_read
+    customer_id  = int(s)
+ValueError: invalid literal for int() with base 10: b'1:'
 
 ======================================================================
 ERROR: test_get_solutions_2 (__main__.TestNetflix)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "TestNetflix.py", line 99, in test_get_solutions_2
+  File "TestNetflix.py", line 97, in test_get_solutions_2
     solutions_dict = get_solutions(self.caches[2])
-  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 102, in get_solutions
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 101, in get_solutions
     return netflix_read(solutions)
-  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 50, in netflix_read
-    if ':' in s :
-TypeError: Type str doesn't support the buffer API
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 57, in netflix_read
+    customer_id  = int(s)
+ValueError: invalid literal for int() with base 10: b'1:'
 
 ======================================================================
 ERROR: test_get_solutions_3 (__main__.TestNetflix)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "TestNetflix.py", line 104, in test_get_solutions_3
+  File "TestNetflix.py", line 102, in test_get_solutions_3
     solutions_dict = get_solutions(self.caches[2])
-  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 102, in get_solutions
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 101, in get_solutions
     return netflix_read(solutions)
-  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 50, in netflix_read
-    if ':' in s :
-TypeError: Type str doesn't support the buffer API
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 57, in netflix_read
+    customer_id  = int(s)
+ValueError: invalid literal for int() with base 10: b'1:'
 
 ======================================================================
 ERROR: test_solve_1 (__main__.TestNetflix)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "TestNetflix.py", line 227, in test_solve_1
+  File "TestNetflix.py", line 225, in test_solve_1
     netflix_solve(r, w)
-  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 210, in netflix_solve
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 209, in netflix_solve
     solutions_dict = get_solutions(solutions)
-  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 102, in get_solutions
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 101, in get_solutions
     return netflix_read(solutions)
-  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 50, in netflix_read
-    if ':' in s :
-TypeError: Type str doesn't support the buffer API
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 57, in netflix_read
+    customer_id  = int(s)
+ValueError: invalid literal for int() with base 10: b'1:'
 
 ======================================================================
 ERROR: test_solve_2 (__main__.TestNetflix)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "TestNetflix.py", line 238, in test_solve_2
+  File "TestNetflix.py", line 236, in test_solve_2
     netflix_solve(r, w)
-  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 210, in netflix_solve
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 209, in netflix_solve
     solutions_dict = get_solutions(solutions)
-  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 102, in get_solutions
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 101, in get_solutions
     return netflix_read(solutions)
-  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 50, in netflix_read
-    if ':' in s :
-TypeError: Type str doesn't support the buffer API
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 57, in netflix_read
+    customer_id  = int(s)
+ValueError: invalid literal for int() with base 10: b'1:'
 
 ======================================================================
 ERROR: test_solve_3 (__main__.TestNetflix)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "TestNetflix.py", line 249, in test_solve_3
+  File "TestNetflix.py", line 247, in test_solve_3
     netflix_solve(r, w)
-  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 210, in netflix_solve
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 209, in netflix_solve
     solutions_dict = get_solutions(solutions)
-  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 102, in get_solutions
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 101, in get_solutions
     return netflix_read(solutions)
-  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 50, in netflix_read
-    if ':' in s :
-TypeError: Type str doesn't support the buffer API
+  File "/v/filer4b/v38q001/epenning/CS_373/cs373-netflix/Netflix.py", line 57, in netflix_read
+    customer_id  = int(s)
+ValueError: invalid literal for int() with base 10: b'1:'
 
 ======================================================================
 FAIL: test_predict_1 (__main__.TestNetflix)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "TestNetflix.py", line 117, in test_predict_1
+  File "TestNetflix.py", line 115, in test_predict_1
     self.assertEqual(3.6, rating)
 AssertionError: 3.6 != 3.5
 
 ----------------------------------------------------------------------
-Ran 27 tests in 20.272s
+Ran 27 tests in 20.869s
 
 FAILED (failures=1, errors=6)
