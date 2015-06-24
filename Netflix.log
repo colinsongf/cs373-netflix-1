@@ -1,3 +1,9 @@
+commit c0431586c51dff7490b9cda73c00ee0f627839f5
+Author: Erin Pennington <epenning@cs.utexas.edu>
+Date:   Tue Jun 23 20:48:28 2015 -0500
+
+    fixed travis spacing issue
+
 commit 17f6fe24abd52d010204fbf61743911edec02b1c
 Author: Erin Pennington <epenning@cs.utexas.edu>
 Date:   Tue Jun 23 20:43:42 2015 -0500
