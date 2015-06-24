@@ -25,7 +25,7 @@ def netflix_load () :
     user_info = pickle.load(url)
     url.close()
 
-    url = open("./jmt3675-probe_solution.txt", 'rb')
+    url = open("./jmt3675-probe_solution.txt")
     solutions = url.read()
     url.close()
 
@@ -47,7 +47,7 @@ def netflix_read (input) :
     a = input.split()
     movie_id = -1
     for s in a:
-        if s[(len(s) - 1):] == ':':
+        if s.endswith(':'):
             # s should contain a movie id, so make it a key
             movie_id = int(s[0:len(s)-1])
             to_predict_dict[movie_id] = []
