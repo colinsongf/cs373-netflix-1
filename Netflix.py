@@ -17,16 +17,16 @@ def netflix_load () :
     """
     # open the caches from the public test repo
 
-    url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/mb39822-movie_info.p")
+    url = open("./mb39822-movie_info.p", 'rb')
     movie_info = pickle.load(url)
     url.close()
 
-    url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/mb39822-user_info.txt")
+    url = open("./mb39822-user_info.txt", 'rb')
     user_info = pickle.load(url)
     url.close()
 
-    url = urlopen("http://www.cs.utexas.edu/~ebanner/netflix-tests/jmt3675-probe_solution.txt")
-    solutions = url.read().decode(url.info().get_param('charset') or 'utf-8')
+    url = open("./jmt3675-probe_solution.txt", 'rb')
+    solutions = url.read()
     url.close()
 
     return [movie_info, user_info, solutions]

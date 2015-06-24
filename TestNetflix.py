@@ -10,13 +10,18 @@ from io       import StringIO
 from unittest import main, TestCase
 
 from collections import OrderedDict 
-from Netflix import netflix_read, netflix_eval, netflix_print, netflix_solve, get_movie_rating, get_customer_rating, predict, get_solutions, calculate_RMSE
+from Netflix import netflix_read, netflix_eval, netflix_print, netflix_solve, get_movie_rating, get_customer_rating, predict, get_solutions, calculate_RMSE, netflix_load
 
 # -----------
 # TestNetflix
 # -----------
 
 class TestNetflix (TestCase) :
+
+    print("loading\n")
+    caches = netflix_load()
+    print("loaded\n")
+
     # ----
     # read
     # ----
@@ -50,15 +55,15 @@ class TestNetflix (TestCase) :
     # ----
 
     def test_get_movie_rating_1(self):
-        rating = get_movie_rating(4335)
+        rating = get_movie_rating(caches[0], 4335)
         self.assertEqual(3.779, rating)
 
     def test_get_movie_rating_2(self):
-        rating = get_movie_rating(4618)
+        rating = get_movie_rating(caches[0], 4618)
         self.assertEqual(2.7875, rating)
 
     def test_get_movie_rating_3(self):
-        rating = get_movie_rating(2736)
+        rating = get_movie_rating(caches[0], 2736)
         self.assertEqual(3.875, rating)
 
 
@@ -68,15 +73,15 @@ class TestNetflix (TestCase) :
     # ----
 
     def test_get_customer_rating_1(self):
-        rating = get_customer_rating(1585790)
+        rating = get_customer_rating(caches[1], 1585790)
         self.assertEqual(3.41666667, round(rating, 8))
 
     def test_get_customer_rating_2(self):
-        rating = get_customer_rating(1654988)
+        rating = get_customer_rating(caches[1], 1654988)
         self.assertEqual(4.20408163, round(rating, 8))
 
     def test_get_customer_rating_3(self):
-        rating = get_customer_rating(958597)
+        rating = get_customer_rating(caches[1], 958597)
         self.assertEqual(3.27848101, round(rating, 8))
 
     # ----     
@@ -84,17 +89,17 @@ class TestNetflix (TestCase) :
     # ----
 
     def test_get_solutions_1(self):
-        solutions_dict = get_solutions()
+        solutions_dict = get_solutions(caches[2])
         movie_ratings = solutions_dict[1]
         self.assertEqual(4, movie_ratings[0])
 
     def test_get_solutions_2(self):
-        solutions_dict = get_solutions()
+        solutions_dict = get_solutions(caches[2])
         movie_ratings = solutions_dict[10]
         self.assertEqual(3, movie_ratings[1])
 
     def test_get_solutions_3(self):
-        solutions_dict = get_solutions()
+        solutions_dict = get_solutions(caches[2])
         movie_ratings = solutions_dict[10016]
         self.assertEqual(2, movie_ratings[0])
         self.assertEqual(2, movie_ratings[2])
@@ -106,15 +111,15 @@ class TestNetflix (TestCase) :
     # ----
 
     def test_predict_1(self):
-        rating = predict(4335, 1585790)
+        rating = predict(caches, 4335, 1585790)
         self.assertEqual(3.6, rating)
 
     def test_predict_2(self):
-        rating = predict(3949, 2484454)
+        rating = predict(caches, 3949, 2484454)
         self.assertEqual(3.9, rating)
 
     def test_predict_3(self):
-        rating = predict(5370, 756299)
+        rating = predict(caches, 5370, 756299)
         self.assertEqual(3.2, rating)
 
 
@@ -147,7 +152,7 @@ class TestNetflix (TestCase) :
 
     def test_eval_1 (self) :
         to_predict_dict = OrderedDict([(1234, [1585790, 654988])])
-        predictions_dict = netflix_eval(to_predict_dict)
+        predictions_dict = netflix_eval(caches, to_predict_dict)
         self.assertEqual(1, len(predictions_dict))
         movie_ratings = predictions_dict[1234]
         self.assertEqual(2, len(movie_ratings))
@@ -158,7 +163,7 @@ class TestNetflix (TestCase) :
 
     def test_eval_2 (self) :
         to_predict_dict = OrderedDict([(4335, [1585790, 2484454, 756299])])
-        predictions_dict = netflix_eval(to_predict_dict)
+        predictions_dict = netflix_eval(caches, to_predict_dict)
         self.assertEqual(1, len(predictions_dict))
         movie_ratings = predictions_dict[4335]
         self.assertEqual(3, len(movie_ratings))
@@ -171,7 +176,7 @@ class TestNetflix (TestCase) :
 
     def test_eval_3 (self) :
         to_predict_dict = OrderedDict([(4335, [1585790, 2484454, 756299]), (1234, [1585790, 1654988])])
-        predictions_dict = netflix_eval(to_predict_dict)
+        predictions_dict = netflix_eval(caches, to_predict_dict)
         self.assertEqual(2, len(predictions_dict))
         movie_ratings = predictions_dict[4335]
         self.assertEqual(3, len(movie_ratings))
